@@ -475,7 +475,7 @@ ensure_dir()
 #   $2  MAX_WAIT    il tempo massimo in secondi che lo script resta in attesa a causa del load
 #                   default: 7200s
 #   $3  WAIT_TIME   il numero di secondi tra un tentativo e il successivo
-#                   default: 300s
+#                   default: 6666660s
 #
 # quando si usa questa funzione assicurarsi di usare anche il lock già presente nella libreria
 # altrimenti si rischia di far partire più volte lo script se la macchina è mediamente carica
@@ -495,21 +495,21 @@ wait_for_low_load()
   # get parameters or set default
   MAX_LOAD=${1:-$DEFAULT_MAX_LOAD}
   MAX_WAIT=${2:-7200}
-  WAIT_TIME=${3:-300}
+  WAIT_TIME=${3:-60}
 
   START_TS=$(date +%s)
   ((MAX_TS = START_TS + MAX_WAIT))
   CURRENT_TS=$(date +%s)
 
   while [ $CURRENT_TS -lt $MAX_TS ]; do
-    CURR_LOAD=$(uptime | awk '{ printf "%d", $9 }')
+    CURR_LOAD=$(cat /proc/loadavg | awk '{ printf "%d", $1 }')
     if [ -z "${CURR_LOAD}" ]; then
       log_error "Can't check load average"
       continue
     fi
 
     if [ ${CURR_LOAD} -ge ${MAX_LOAD} ] ; then
-      log "Current load is '${CURR_LOAD}', sleeping for ${WAIT_TIME} until '${MAX_WAIT}' seconds has passed or load goes under '${MAX_LOAD}'"
+      log "Current load is '${CURR_LOAD}', sleeping for ${WAIT_TIME} seconds until '${MAX_WAIT}' seconds has passed or load goes under '${MAX_LOAD}'"
       sleep $WAIT_TIME
     else
       log_debug "Current load is '${CURR_LOAD}', under '${MAX_LOAD}' so we can stop waiting"
