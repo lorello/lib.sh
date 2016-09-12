@@ -43,7 +43,10 @@ LOGLEVEL_QUIET=0
 : ${MAILFROM:='nobody'}
 : ${MAILTO:="root@localhost"}
 
-#Umask - per creare i file di log con i permessi corretti se lo script viene eseguito da root
+#Umask
+# useful setup for shared environments: when a host is used by more than one users
+# that share a group, it's useful have write permission for group on files and directories
+# so this lib alter the default UMASK to permit this behaviour
 umask 0002
 
 # CONFIGURAZIONE
@@ -59,7 +62,6 @@ umask 0002
 #   /root/scripts/etc/mirror.conf
 #   /usr/local/etc/mirror.conf
 #   /etc/mirror.conf
-
 function include_conf() {
 
     USER_CONF="~/.$CONFFILENAME"                        # configurazione personale dell'utente
@@ -167,7 +169,7 @@ function get_confirm() {
 
 # controllo sull'utente
 
-# la funzione si chiamava orribilmente if_user
+# removed function, throw an error if used
 function if_user() {
     log_error "function deprecated, use 'ensure_user'"
 }
@@ -600,3 +602,9 @@ ssh_exec()
 
   return $?
 }
+
+
+# Requirements for the library
+ensure_bin whoami
+
+
