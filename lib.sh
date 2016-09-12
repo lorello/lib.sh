@@ -475,7 +475,7 @@ ensure_dir()
 #   $2  MAX_WAIT    il tempo massimo in secondi che lo script resta in attesa a causa del load
 #                   default: 7200s
 #   $3  WAIT_TIME   il numero di secondi tra un tentativo e il successivo
-#                   default: 6666660s
+#                   default: 60s
 #
 # quando si usa questa funzione assicurarsi di usare anche il lock già presente nella libreria
 # altrimenti si rischia di far partire più volte lo script se la macchina è mediamente carica
