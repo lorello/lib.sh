@@ -261,7 +261,7 @@ fi
 #   SLACK_URL variable in /usr/local/etc/slack.conf
 function slack()
 {
-  ensure_bin 'curl' || return 1
+  CURL=$(ensure_bin 'curl') || return 1
   # SLACK_URL variable is secret, is not inside the library, it must be created on server in a different way
   [ -f /usr/local/etc/slack.conf ] || return 1
   . /usr/local/etc/slack.conf
@@ -273,7 +273,7 @@ function slack()
     fi
     TEXT="*$USER@$HOSTNAME:$SCRIPT*\n\`\`\`$1\`\`\`"
     PAYLOAD="payload={\"channel\": \"$CHANNEL\", \"text\": \"$TEXT\"}"
-    /usr/bin/curl --silent -X POST --data-urlencode "$PAYLOAD" "$SLACK_URL"
+    $CURL --silent -X POST --data-urlencode "$PAYLOAD" "$SLACK_URL"
   fi
 }
 
@@ -344,10 +344,10 @@ EOF
 
 function get_lock()
 {
-  ensure_bin 'flock' || exit 1
+  FLOCK=$(ensure_bin 'flock') || exit 1
 
   exec 1000>$LOCKFILE
-  if flock -n -x 1000; then
+  if $FLOCK -n -x 1000; then
     return
   else
     log_error "impossibile acquisire il lock. Uscita"
@@ -550,15 +550,15 @@ drbd_is_primary()
     return 1
   fi
 
-  ensure_bin ${drbdadm_binary} || return 1
+  DRBDADM=$(ensure_bin drbdadm) || return 1
 
-  if [ "x$(drbdadm state ${resource} | \
-    awk -F / '{ print $1 }')" == 'xPrimary' ]
-then
-  return 0
-else
-  return 1
-fi
+  RESOURCE_STATE=$($DRBDADM state ${resource} | awk -F / '{ print $1 }')
+
+  if [ "x$RESOURCE_STATE" == 'xPrimary' ]; then
+  	return 0
+  else
+  	return 1
+  fi
 }
 
 # ssh_exec
@@ -592,12 +592,12 @@ ssh_exec()
     return 1
   fi
 
-  ensure_bin ssh || return 1
+  SSH=$(ensure_bin ssh) || return 1
 
   if [ "x${verbose}" == "xverbose" ]; then
-    ssh -l ${user} ${host} "${cmd}"
+    $SSH -l ${user} ${host} "${cmd}"
   else
-    ssh -l ${user} ${host} "${cmd} >/dev/null 2>&1";
+    $SSH -l ${user} ${host} "${cmd} >/dev/null 2>&1";
   fi
 
   return $?
@@ -605,6 +605,6 @@ ssh_exec()
 
 
 # Requirements for the library
-ensure_bin whoami
+WHOAMI=$(ensure_bin whoami)
 
 
