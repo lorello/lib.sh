@@ -138,6 +138,8 @@ function ensure_bin()
         return 1
     fi
 
+    echo $FILE
+
     # TODO: questo controllo fallisce... boh, per ora commento
     #if [ -x "${FILE}" ]; then
     #    log_error "${MSG}: file not executable"
@@ -421,6 +423,10 @@ print_var()
 # TODO aggiungere check
 ensure_dir()
 {
+  if [ $# -ne 1 ]; then
+    log_error "${fn} usage: ${fn} <dirname>"
+    return 1
+  fi
 
   local DIR=$1
   local PERMS=$2
