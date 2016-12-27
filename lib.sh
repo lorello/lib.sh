@@ -361,6 +361,7 @@ function unlock()
 {
   log_debug "removing lockfile $LOCKFILE"
   [ -f $LOCKFILE ] && rm -f $LOCKFILE
+  exit 0
 }
 
 # SIGNAL HANDLINGS
@@ -402,7 +403,7 @@ trap sig_term TERM    # SIGTERM
 
 # UTILITY
 
-# dato il nome di una variabile, ritorna 0 solo se e' definita e valorizzata
+# Given a string as parameter representing a Variable name, returns 0 if the variable is defined AND has a value
 has_value()
 {
   if [[ ${!1-X} == ${!1-Y} ]]; then
@@ -412,6 +413,16 @@ has_value()
   fi
   return 1
 }
+
+# Given a string as parameter representing a Variable name, returns 0 if the variable is defined AND has an INTEGER value 
+is_integer()
+{
+  if has_value ${!1} && [ ! -z "${!1##*[!0-9]*}" ]; then
+    return 0
+  fi
+  return 1
+}
+
 
 # stampa una variabile dato il suo nome
 print_var() 
