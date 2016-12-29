@@ -7,3 +7,5 @@ install:
 uninstall:
 	rm -f $(PREFIX)/lib/bash/lib.sh
 
+test:
+	bash tests.sh
