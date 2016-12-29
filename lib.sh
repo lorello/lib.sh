@@ -12,7 +12,6 @@ set -e
 #o pipefail 
 
 # General variables
-
 SCRIPT="$(readlink -f $0)"
 SCRIPTNAME="$(basename $SCRIPT)"
 SCRIPTPATH="$(dirname $SCRIPT)"
