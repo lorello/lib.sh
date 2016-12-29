@@ -430,14 +430,14 @@ function is_integer()
 
 
 # stampa una variabile dato il suo nome
-print_var() 
+function print_var() 
 {
   echo $(eval echo \$$1)
 }
 
 # funzione generica per creare una directory o riaggiustarne i permessi/proprietario
 # TODO aggiungere check
-ensure_dir()
+function ensure_dir()
 {
   if [ $# -ne 1 ]; then
     log_error "${fn} usage: ${fn} <dirname>"
@@ -509,7 +509,7 @@ ensure_dir()
 # fi
 # log_debug "load is ok, do what you want"
 #
-wait_for_low_load()
+function wait_for_low_load()
 {
   CPU_NUM=$(cat /proc/cpuinfo |egrep "^processor"|wc -l)
   ((DEFAULT_MAX_LOAD = CPU_NUM * 2 + 1))
@@ -561,7 +561,7 @@ wait_for_low_load()
 #       exit N
 #   fi
 #
-drbd_is_primary()
+function drbd_is_primary()
 {
   local resource=$1
   local fn='drbd_is_primary'
@@ -600,7 +600,7 @@ drbd_is_primary()
 #       echo 'error'
 #   fi
 #
-ssh_exec()
+function ssh_exec()
 {
   local host="$1"
   local cmd="$2"
