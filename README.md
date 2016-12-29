@@ -1,5 +1,7 @@
 # lib.sh
 
+[![Build Status](https://travis-ci.org/lorello/lib.sh.svg?branch=master)](https://travis-ci.org/lorello/lib.sh)
+
 Bash Library for common utilities, homogeneous logging, alerting on Slack
 
 ## Setup
@@ -16,6 +18,12 @@ You can also install using the [Bash Package Manager (BPKG)](http://www.bpkg.io/
     #!/usr/bin/env bash
 
     . $(dirname $(readlink -f $0))/../lib/bash/lib.sh || exit 99
+
+## Tests
+
+Just started to write them, but you can run all with
+
+    make test
 
 
 ## Credits
