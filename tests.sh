@@ -44,6 +44,7 @@ function test_ensure_bin_positive()
 
 function test_ensure_bin_negative()
 {
+    LOGLEVEL=$LOGLEVEL_ERROR
     ECHO=$(ensure_bin foofoofoo)
     [ "$ECHO" == "1" ] && return 0
     return 1
