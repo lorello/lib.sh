@@ -8,4 +8,4 @@ uninstall:
 	rm -f $(PREFIX)/lib/bash/lib.sh
 
 test:
-	LOGDIR=. bash tests.sh
+	bash tests.sh || exit 1
