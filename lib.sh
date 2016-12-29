@@ -113,13 +113,8 @@ function include_conf() {
     fi
 }
 
-# CONTROLLI
-
-# E' possibile controllare la presenza di tutti i binari necessari all'esecuzione
-# dello script e fermarsi in assenza di uno di questi
-# nota: da richiamare sempre dopo includeconf()
-# i nomi degli eseguibili sono rappresentati da una stringa
-# contenente i path assoluti dei comandi, separati da spazi
+# SYSTEM CHECKS
+# Deprecated function
 function check_binaries() {
     for BIN in $BINS; do
         if [ ! -x $BIN ]; then
