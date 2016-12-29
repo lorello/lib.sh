@@ -1,0 +1,8 @@
+{
+	"name": "lib.sh",
+	"version": "v0.5",
+	"description": "bash library with basic utilities for scripts",
+	"scripts": [ "lib.sh" ],
+	"install": "make install"
+}
+

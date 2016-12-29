@@ -7,6 +7,10 @@ Bash Library for common utilities, homogeneous logging, alerting on Slack
     mkdir /usr/local/lib/bash
     wget -O /usr/local/lib/bash/lib.sh https://raw.githubusercontent.com/lorello/lib.sh/master/lib.sh
 
+You can also install using the [Bash Package Manager (BPKG)](http://www.bpkg.io/) using:
+
+    bpkg install lorello/lib.sh
+
 ## Usage
 
     #!/usr/bin/env bash
@@ -16,21 +20,8 @@ Bash Library for common utilities, homogeneous logging, alerting on Slack
 
 ## Credits
 
-The library has been written by the Operations team at Softec SpA. 
+The library was created by the Operations team at [Softec SpA](http://www.softecspa.com). 
 Many system administrators contributed to it with ideas and code, 
 but all of them are too lazy to convert the old SVN repository to
 mantain the git history :)
-
-So, in order of appearence:
-
-* Lorenzo Salvadorini
-* Filippo Cenobi (for the windows porting)
-* Michela Tigli
-* Alessandro Sagratini
-* Matteo Capaccioli
-* Francesco Bovicelli
-* Paolo Larcheri
-* Lorenzo Cocchi
-* Felice Pizzurro
-
 
