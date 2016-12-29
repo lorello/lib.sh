@@ -1,9 +1,15 @@
 #!/bin/bash
+# vim: autoindent tabstop=4 shiftwidth=4 expandtab softtabstop=4 filetype=bash fileencoding=utf-8
 #
 # Common library functions
 #
 # Include in any script as follows:
 # . $(dirname $(readlink -f $0))/../lib/bash/lib.sh || exit
+#
+
+# Safe bash execution: https://sipb.mit.edu/doc/safe-shell/
+set -e
+#o pipefail 
 
 # General variables
 
@@ -403,8 +409,8 @@ trap sig_term TERM    # SIGTERM
 
 # UTILITY
 
-# Given a string as parameter representing a Variable name, returns 0 if the variable is defined AND has a value
-has_value()
+# Given a string as parameter representing a Variable name, returns 0 if the variable is defined AND has a value, 1 elsewhere
+function has_value()
 {
   if [[ ${!1-X} == ${!1-Y} ]]; then
     if [[ -n ${!1} ]]; then
@@ -415,7 +421,7 @@ has_value()
 }
 
 # Given a string as parameter representing a Variable name, returns 0 if the variable is defined AND has an INTEGER value 
-is_integer()
+function is_integer()
 {
   if has_value ${!1} && [ ! -z "${!1##*[!0-9]*}" ]; then
     return 0
