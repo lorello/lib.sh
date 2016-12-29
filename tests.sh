@@ -35,6 +35,20 @@ function test_is_integer_negative()
 	return 1
 }
 
+function test_ensure_bin_positive()
+{
+    ECHO=$(ensure_bin echo)
+    [ "$ECHO" == "/bin/echo" ] && return 0
+    return 1
+}
+
+function test_ensure_bin_negative()
+{
+    ECHO=$(ensure_bin foofoofoo)
+    [ "$ECHO" == "1" ] && return 0
+    return 1
+}
+
 
 function run_tests()
 {
