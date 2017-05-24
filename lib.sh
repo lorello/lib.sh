@@ -99,7 +99,7 @@ function include_conf() {
     fi
 
     if [ -z "$CONF_CHOOSEN" ]; then
-        log "No configuration found"
+        log_debug "No configuration found"
         return 0
     fi
 
@@ -141,7 +141,7 @@ function ensure_bin()
     echo $FILE
 
     # TODO: questo controllo fallisce... boh, per ora commento
-    #if [ -x "${FILE}" ]; then
+    #if [ ! -x "${FILE}" ]; then
     #    log_error "${MSG}: file not executable"
     #    return 1
     #fi
